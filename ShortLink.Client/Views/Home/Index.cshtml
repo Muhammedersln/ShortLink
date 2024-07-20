@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Hoşgeldiniz";
+}
+
+
+<section class="landing py-5" >
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <img src="~/img/welcome-img.png" class="img-fluid" alt="welcome" />
+            </div>
+            <div class="col-lg-8">
+                <h1 class="display-4">
+                    Link Kısatlmadan daha fazlası
+                </h1>
+                <p class="lead">
+                    Markanızın tanınırlığını artırın ve bağlantılarınızın nasıl performans gösterdiğine ilişkin ayrıntılı bilgiler edinin
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+     <div class="container">
+         <div class="url-shorten-feature">
+             <from class="url-shorten-form" id="url-shorten-form">
+                 <div>
+                     <input type="text" name="urlToShorten" class="url-input" placeholder="Kısaltılacak link..." />
+                     <span class="alert"></span>
+                 </div>
+                 <button type="submit" class="btn btn-lg">Kısalt!</button>
+             </from>
+             <div class="url-shorten-results"></div>
+         </div>
+     </div>
+</section>

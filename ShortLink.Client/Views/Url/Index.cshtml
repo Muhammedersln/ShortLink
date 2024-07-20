@@ -1,0 +1,43 @@
+﻿@model List<GetUrlVM>;
+@{
+    ViewData["Title"] = "Tüm Linkler";
+}   
+
+<div class="container">
+    <a class="btn btn-outline-success" asp-controller="Home" asp-action="Index">
+        Yeni Link
+    </a>
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Orijinal Link</th>
+                <th scope="col">Kısa Likn</th>
+                <th scope="col">Tıklanma Sayısı</th>
+                <th scope="col">Kullanıcı</th>
+                <th scope="col">Düzenle</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <th>@item.Id</th>
+                    <td>@item.OriginalLink</td>
+                    <td>@item.ShortLink</td>
+                    <td>@item.NrOfClicks</td>
+                    <td>@item.UserId</td>
+                    <td>
+                        <a class="btn btn-outline-danger" asp-controller="Url" asp-action="Remove" asp-route-id="@item.Id">
+                            Sil
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

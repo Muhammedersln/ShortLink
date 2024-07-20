@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Kullanıcılar";
+}
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-1 g-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">user@gmail.com</h5>
+                    <p class="card-text">
+                        BBu kullanıcı 1 link oluşturdu ve toplamda 2 tıklama yaptı
+                    </p>
+
+                    <p>
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                            Ayrıntılar
+                        </a>
+          
+                    </p>
+                    <div class="collapse" id="collapseExample1">
+                        <div class="card card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Orijinal link</th>
+                                        <th>Kısa link</th>
+                                        <th>Tıkalanma</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>https://www.google.com</td>
+                                        <td>https://shrtlnk.com/abc</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">1 link, ve 2 tıklanma </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
