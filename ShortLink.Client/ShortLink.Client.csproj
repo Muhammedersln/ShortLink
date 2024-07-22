@@ -10,4 +10,8 @@
     <PackageReference Include="bootstrap" Version="5.3.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShortLink.Data\ShortLink.Data.csproj" />
+  </ItemGroup>
+
 </Project>

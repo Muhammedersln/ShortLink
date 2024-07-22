@@ -1,50 +1,60 @@
-﻿
+﻿@model List<User>;
 @{
     ViewData["Title"] = "Kullanıcılar";
 }
 
 <div class="container">
     <div class="row row-cols-1 row-cols-md-1 g-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">user@gmail.com</h5>
-                    <p class="card-text">
-                        BBu kullanıcı 1 link oluşturdu ve toplamda 2 tıklama yaptı
-                    </p>
 
-                    <p>
-                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
-                            Ayrıntılar
-                        </a>
-          
-                    </p>
-                    <div class="collapse" id="collapseExample1">
-                        <div class="card card-body">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Orijinal link</th>
-                                        <th>Kısa link</th>
-                                        <th>Tıkalanma</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>https://www.google.com</td>
-                                        <td>https://shrtlnk.com/abc</td>
-                                        <td>1</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+        @foreach(var user in Model)
+        {
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@user.FullName</h5>
+                        <p class="card-text">
+                            Bu kullanıcı @user.Urls.Count link oluşturdu ve toplamda @user.Urls.Sum(n => n.NrOfClicks) tıklama yaptı
+                        </p>
+
+                        <p>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                                Ayrıntılar
+                            </a>
+
+                        </p>
+                        <div class="collapse" id="collapseExample1">
+                            <div class="card card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Orijinal link</th>
+                                            <th>Kısa link</th>
+                                            <th>Tıkalanma</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach(var userUrl in @user.Urls)
+                                        {
+                                            <tr>
+                                                <td>@userUrl.OriginalLink</td>
+                                                <td>@userUrl.ShortLink</td>
+                                                <td>@userUrl.NrOfClicks</td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">1 link, ve 2 tıklanma </small>
+                    <div class="card-footer">
+                        <small class="text-muted">@user.Urls.Count link, ve @user.Urls.Sum(n => n.NrOfClicks) tıklanma </small>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        }
+
     </div>
 
 </div>

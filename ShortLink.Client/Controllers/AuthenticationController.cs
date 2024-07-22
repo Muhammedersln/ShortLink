@@ -1,13 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
+using ShortLink.Data;
 
 namespace ShortLink.Client.Controllers
 {
     public class AuthenticationController : Controller
     {
+        
+        private AppDbContext _context;
+
+        public AuthenticationController(AppDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Users()
         {
-            return View();
+            var users = _context
+                .Users
+                .Include(u => u.Urls)
+                .ToList();
+            return View(users);
         }
 
         public IActionResult Login()

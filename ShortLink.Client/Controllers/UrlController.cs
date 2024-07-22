@@ -1,20 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShortLink.Client.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
+using ShortLink.Data;
 
 namespace ShortLink.Client.Controllers
 {
     public class UrlController : Controller
     {
+        private AppDbContext _context;
+
+        public UrlController(AppDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             //fake data
-            var allUrls = new List<GetUrlVM>()
-            {
-                new GetUrlVM { Id = 1, OriginalLink = "https://www.google.com", ShortLink = "sh1",NrOfClicks=1,UserId=1 },
-                new GetUrlVM { Id = 2, OriginalLink = "https://www.youtube.com", ShortLink = "sh2",NrOfClicks=5,UserId=2 },
-                new GetUrlVM { Id = 3, OriginalLink = "https://www.facebbook.com", ShortLink = "sh3",NrOfClicks=9,UserId=3},
-            };
+            var allUrls = _context
+                .Urls
+                .Include(u => u.User)
+                .Select(url =>new GetUrlVM
+                {
+                    Id = url.Id,
+                    OriginalLink = url.OriginalLink,
+                    ShortLink = url.ShortLink,
+                    NrOfClicks = url.NrOfClicks,
+                    UserId = url.UserId,
+
+                    User = url.User != null ? new GetUserVM
+                    {
+                        Id = url.User.Id,
+                        FullName = url.User.FullName
+                    } : null,
+                })
+                .ToList();
             return View(allUrls);
         }
 
@@ -25,7 +44,10 @@ namespace ShortLink.Client.Controllers
 
         public IActionResult Remove(int id)
         {
-            return View();
+            var url = _context.Urls.FirstOrDefault(u => u.Id == id);
+            _context.Urls.Remove(url);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

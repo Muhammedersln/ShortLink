@@ -3,6 +3,17 @@
     ViewData["Title"] = "Hoşgeldiniz";
 }
 
+@{
+    if(TempData["Message"] != null)
+    {
+        <div class="container">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Başarılı!</strong> @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+}
 
 <section class="landing py-5" >
     <div class="container">
@@ -25,7 +36,10 @@
 <section class="features" id="features">
     <div class="container">
         <div class="url-shorten-feature">
-            <form class="url-shorten-form" id="url-shorten-form" asp-controller="Home" asp-action="ShortenUrl" method="post">
+            <form class="url-shorten-form" id="url-shorten-form"
+                asp-controller="Home"
+                asp-action="ShortenUrl"
+                method="post">
                 <div>
                     <input type="text" name="Url" id="Url" class="url-input" placeholder="Kısaltılacak link..." autocomplete="off" />
                     <span asp-validation-for="Url" class="text-danger"></span>

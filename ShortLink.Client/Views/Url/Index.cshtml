@@ -30,9 +30,12 @@
                     <td>@item.OriginalLink</td>
                     <td>@item.ShortLink</td>
                     <td>@item.NrOfClicks</td>
-                    <td>@item.UserId</td>
+                    <td>@(item.User != null ? item.User.FullName : "-")</td>
                     <td>
-                        <a class="btn btn-outline-danger" asp-controller="Url" asp-action="Remove" asp-route-id="@item.Id">
+                        <a class="btn btn-outline-danger"
+                            asp-controller="Url" 
+                            asp-action="Remove"
+                            asp-route-id="@item.Id">
                             Sil
                         </a>
                     </td>
