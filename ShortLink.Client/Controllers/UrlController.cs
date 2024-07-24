@@ -1,52 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
 using ShortLink.Data;
+using ShortLink.Data.Models;
+using ShortLink.Data.Sevices;
 
 namespace ShortLink.Client.Controllers
 {
     public class UrlController : Controller
     {
-        private AppDbContext _context;
+        private IUrlsService _urlsService;
+        private readonly IMapper _mapper;
 
-        public UrlController(AppDbContext context)
+
+        public UrlController(IUrlsService urlsService, IMapper mapper)
         {
-            _context = context;
+            _urlsService = urlsService;
+            _mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //fake data
-            var allUrls = _context
-                .Urls
-                .Include(u => u.User)
-                .Select(url =>new GetUrlVM
-                {
-                    Id = url.Id,
-                    OriginalLink = url.OriginalLink,
-                    ShortLink = url.ShortLink,
-                    NrOfClicks = url.NrOfClicks,
-                    UserId = url.UserId,
+            var allUrls = await _urlsService.GetUrlsAsync();
+            var mappedAllUrls = _mapper.Map<List<Url> ,List<GetUrlVM>>(allUrls);
 
-                    User = url.User != null ? new GetUserVM
-                    {
-                        Id = url.User.Id,
-                        FullName = url.User.FullName
-                    } : null,
-                })
-                .ToList();
-            return View(allUrls);
+            return View(mappedAllUrls);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            var url = _context.Urls.FirstOrDefault(u => u.Id == id);
-            _context.Urls.Remove(url);
-            _context.SaveChanges();
+            await _urlsService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
     }

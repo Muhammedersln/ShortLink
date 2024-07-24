@@ -2,32 +2,30 @@
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
 using ShortLink.Data;
+using ShortLink.Data.Sevices;
 
 namespace ShortLink.Client.Controllers
 {
     public class AuthenticationController : Controller
     {
         
-        private AppDbContext _context;
+        private IUsersService _usersService;
 
-        public AuthenticationController(AppDbContext context)
+        public AuthenticationController(IUsersService usersService)
         {
-            _context = context;
+            _usersService = usersService;
         }
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            var users = _context
-                .Users
-                .Include(u => u.Urls)
-                .ToList();
+            var users = await _usersService.GetUsersAsync();
             return View(users);
         }
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
             return View(new LoginVM());
         }
-        public IActionResult LoginSubmitted(LoginVM loginVM)
+        public async Task<IActionResult> LoginSubmitted(LoginVM loginVM)
         {
             if (!ModelState.IsValid)
             {
@@ -37,11 +35,11 @@ namespace ShortLink.Client.Controllers
         }
 
 
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             return View(new RegisterVM());
         }
-        public IActionResult RegisterUser(RegisterVM registerVM)
+        public async Task<IActionResult> RegisterUser(RegisterVM registerVM)
         {
             if (!ModelState.IsValid)
             {

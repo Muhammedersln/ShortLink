@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Data;
+using ShortLink.Data.Sevices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+//add services
+builder.Services.AddScoped<IUrlsService, UrlsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
