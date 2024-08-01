@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
+using ShortLink.Client.Helpers.Roles;
 using ShortLink.Data;
 using ShortLink.Data.Models;
 using ShortLink.Data.Sevices;
@@ -61,10 +62,9 @@ namespace ShortLink.Client.Controllers
                     {
                         return RedirectToAction("TwoFactorConfirmation", new { loggedInUserId = user.Id });
                     }
-
                     else
                     {
-                        ModelState.AddModelError("", "Invalid login attempt. Please, check your username and password");
+                        ModelState.AddModelError("", "Geçersiz giriş denemesi. Lütfen kullanıcı adınızı ve şifrenizi kontrol edin.");
                         return View("Login", loginVM);
                     }
                 }
@@ -74,15 +74,14 @@ namespace ShortLink.Client.Controllers
 
                     if (await _userManager.IsLockedOutAsync(user))
                     {
-                        ModelState.AddModelError("", "Your account is locked, please try again in 10 mins");
+                        ModelState.AddModelError("", "Hesabınız kilitlendi, lütfen 10 dakika sonra tekrar deneyin.");
                         return View("Login", loginVM);
                     }
 
-                    ModelState.AddModelError("", "Invalid login attempt. Please, check your username and password");
+                    ModelState.AddModelError("", "Geçersiz giriş denemesi. Lütfen kullanıcı adınızı ve şifrenizi kontrol edin.");
                     return View("Login", loginVM);
                 }
             }
-
 
             return RedirectToAction("Index", "Home");
         }
@@ -97,6 +96,48 @@ namespace ShortLink.Client.Controllers
             {
                 return View("Register", registerVM);
             }
+
+            //check if the user already exists
+
+            var userExists = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+            if (userExists != null)
+            { 
+                ModelState.AddModelError("", "Bu e-posta adresi zaten kullanımda.");
+                return View("Register", registerVM);
+            }
+
+            var newUser = new AppUser
+            {
+                Email = registerVM.EmailAddress,
+                UserName = registerVM.EmailAddress,
+                FullName = registerVM.FullName,
+                LockoutEnabled = true
+            };
+
+            var userCreated = await _userManager.CreateAsync(newUser, registerVM.Password);
+            if (userCreated.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, Role.User);
+
+                //Login the user
+                await _signInManager.PasswordSignInAsync(newUser, registerVM.Password, false, false);
+            }else
+            {
+                foreach(var error in userCreated.Errors)
+                {
+
+                   ModelState.AddModelError("", error.Description);
+                }
+
+                return View("Register", registerVM);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }

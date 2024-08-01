@@ -4,7 +4,7 @@
 }
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <h4 class="form-header">Log in to your account</h4>
+        <h4 class="form-header">Hesabınıza Giriş Yapın</h4>
 
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -15,21 +15,23 @@
                     <div asp-validation-summary="All" class="text-danger"></div>
 
                     <div class="form-group mb-3">
-                        <label for="emailAddress">Email address</label>
-                        <input type="email" asp-for="EmailAddress" class="form-control" id="emailAddress" placeholder="Enter email" />
-                        <small id="emailAddressSm" class="form-text text-muted">We'll never share your email with anyone else.</small> <br />
+                        <label for="emailAddress">E-posta adresi</label>
+                        <input type="email" asp-for="EmailAddress" class="form-control" id="emailAddress" placeholder="E-posta adresinizi girin" />
+                        <small id="emailAddressSm" class="form-text text-muted">E-posta adresinizi kimseyle paylaşmayacağız.</small> <br />
                         <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="password">Password</label>
-                        <input type="password" asp-for="Password" class="form-control" id="password" placeholder="Enter password" />
+                        <label for="password">Şifre</label>
+                        <input type="password" asp-for="Password" class="form-control" id="password" placeholder="Şifrenizi girin" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <button type="submit" class="btn btn-outline-success mt-2 btn-login">
-                        Log in
+                        Giriş Yap
                     </button>
                 </form>
             </div>
         </div>
+    </div>
+</div>

@@ -17,7 +17,10 @@
                 <th scope="col">Orijinal Link</th>
                 <th scope="col">Kısa Likn</th>
                 <th scope="col">Tıklanma Sayısı</th>
-                <th scope="col">Kullanıcı</th>
+                @if(User.IsInRole(Role.Admin))
+                {
+                    <th scope="col">Kullanıcı</th>
+                }
                 <th scope="col">Düzenle</th>
             </tr>
         </thead>
@@ -30,7 +33,10 @@
                     <td>@item.OriginalLink</td>
                     <td>@item.ShortLink</td>
                     <td>@item.NrOfClicks</td>
-                    <td>@(item.User != null ? item.User.FullName : "-")</td>
+                    @if (User.IsInRole(Role.Admin))
+                    {
+                        <td>@(item.User != null ? item.User.FullName : "-")</td>
+                    }
                     <td>
                         <a class="btn btn-outline-danger"
                             asp-controller="Url" 

@@ -22,7 +22,22 @@ namespace ShortLink.Data.Sevices
             return url;
         }
 
-        public async Task<List<Url>> GetUrlsAsync() => await _context.Urls.Include(n => n.User).ToListAsync();
+        public async Task<List<Url>> GetUrlsAsync( string userId, bool isAdmin)
+        {
+
+            var allUrls =  _context.Urls.Include(n => n.User);
+            
+            if (!isAdmin)
+            {
+                return await allUrls.ToListAsync();
+            }
+            else
+            {
+
+               return await allUrls.Where(n => n.UserId == userId).ToListAsync();
+            }
+
+        }
 
 
         public async Task<Url> AddAsync(Url url)

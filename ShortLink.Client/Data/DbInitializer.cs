@@ -4,6 +4,7 @@ using ShortLink.Data.Models;
 using ShortLink.Data;
 using ShortLink.Data.Models;
 using System.Data;
+using ShortLink.Client.Helpers.Roles;
 
 namespace ShortLink.Client.Data
 {
@@ -18,7 +19,7 @@ namespace ShortLink.Client.Data
 
 
                 //Simple user related data
-                var simpleUserRole = "User";
+                var simpleUserRole = Role.User;
                 var simpleUserEmail = "user@shrtly.com";
 
                 if (!await roleManager.RoleExistsAsync(simpleUserRole))
@@ -40,7 +41,7 @@ namespace ShortLink.Client.Data
                 }
 
                 //Admin user related data
-                var adminUserRole = "Admin";
+                var adminUserRole = Role.Admin;
                 var adminUserEmail = "admin@shrtly.com";
 
                 if (!await roleManager.RoleExistsAsync(adminUserRole))

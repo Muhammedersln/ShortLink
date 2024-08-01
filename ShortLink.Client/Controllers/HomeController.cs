@@ -3,6 +3,7 @@ using ShortLink.Client.Data.ViewModels;
 using ShortLink.Data;
 using ShortLink.Data.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace ShortLink.Client.Controllers
 {
@@ -29,13 +30,13 @@ namespace ShortLink.Client.Controllers
                 // Do something with the url
                 return View("Index", postUrlVM);
             }
-
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var newUrl = new Url ()
             {
                 OriginalLink = postUrlVM.Url,
                 ShortLink = GenerateShortUrl(6),
                 NrOfClicks = 0,
-                UserId = null,
+                UserId = loggedInUserId,
                 DateCreated = DateTime.UtcNow
             };
 
