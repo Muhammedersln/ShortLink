@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortLink.Client", "ShortLink.Client\ShortLink.Client.csproj", "{6EEC693C-2306-40F9-A666-691CFEC4DF0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShortLink.Client", "ShortLink.Client\ShortLink.Client.csproj", "{6EEC693C-2306-40F9-A666-691CFEC4DF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortLink.Redirect", "ShortLink.Redirect\ShortLink.Redirect.csproj", "{460B67DC-4226-4226-8DD6-8C435B682B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShortLink.Redirect", "ShortLink.Redirect\ShortLink.Redirect.csproj", "{460B67DC-4226-4226-8DD6-8C435B682B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortLink.Data", "ShortLink.Data\ShortLink.Data.csproj", "{A2E06908-A695-4D4F-A462-B98599A3EACD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShortLink.Data", "ShortLink.Data\ShortLink.Data.csproj", "{A2E06908-A695-4D4F-A462-B98599A3EACD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
