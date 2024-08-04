@@ -1,8 +1,8 @@
 # Link Shortening Project
 
-![Project Screenshot 1](Shortlink.Client/img/1.png)
-![Project Screenshot 2](shortlink.client/img/2.img)
-![Project Screenshot 3](shortlink.client/img/3.img)
+![Project Screenshot 1](ShortLink.Client/img/1.png)
+![Project Screenshot 1](ShortLink.Client/img/2.png)
+![Project Screenshot 1](ShortLink.Client/img/3.png)
 
 This project, built with .NET, allows you to transform long URLs into shorter, more manageable ones. It enables users to easily create and manage shortened URLs.
 
