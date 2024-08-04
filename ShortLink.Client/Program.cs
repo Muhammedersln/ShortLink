@@ -44,6 +44,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     //lockout settings
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
     options.Lockout.MaxFailedAccessAttempts = 5;
+
+    //siging settings
 });
 
 //add services

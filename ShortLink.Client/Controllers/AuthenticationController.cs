@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using ShortLink.Client.Data.ViewModels;
 using ShortLink.Client.Helpers.Roles;
 using ShortLink.Data;
@@ -15,15 +17,18 @@ namespace ShortLink.Client.Controllers
         private IUsersService _usersService;
         private SignInManager<AppUser> _signInManager;
         private UserManager<AppUser> _userManager;
+        private IConfiguration _configuration;
 
 
         public AuthenticationController(IUsersService usersService,
             SignInManager<AppUser> signInManager,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            IConfiguration configuration)
         {
             _usersService = usersService;
             _signInManager = signInManager;
             _userManager = userManager;
+            _configuration = configuration;
         }
         public async Task<IActionResult> Users()
         {
@@ -53,14 +58,6 @@ namespace ShortLink.Client.Controllers
                     if (userLoggedIn.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
-                    }
-                    else if (userLoggedIn.IsNotAllowed)
-                    {
-                        return RedirectToAction("EmailConfirmation");
-                    }
-                    else if (userLoggedIn.RequiresTwoFactor)
-                    {
-                        return RedirectToAction("TwoFactorConfirmation", new { loggedInUserId = user.Id });
                     }
                     else
                     {
@@ -140,5 +137,6 @@ namespace ShortLink.Client.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

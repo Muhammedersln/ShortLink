@@ -27,7 +27,7 @@ namespace ShortLink.Data.Sevices
 
             var allUrls =  _context.Urls.Include(n => n.User);
             
-            if (!isAdmin)
+            if (isAdmin)
             {
                 return await allUrls.ToListAsync();
             }
@@ -73,5 +73,17 @@ namespace ShortLink.Data.Sevices
             }
         }
 
+        public async Task<Url> GetOriginalUrlAsync(string shortUrl)
+        {
+            var dbUrl = await _context.Urls.FirstOrDefaultAsync(n => n.ShortLink == shortUrl);
+            return dbUrl;
+        }
+
+        public async Task IncrementNumberOfClicksAsync(int shortUrlId)
+        {
+            var dbUrl = await _context.Urls.FirstOrDefaultAsync(n => n.Id == shortUrlId);
+            dbUrl.NrOfClicks++;
+            await _context.SaveChangesAsync();
+        }
     }
 }
