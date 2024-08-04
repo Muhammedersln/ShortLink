@@ -1,6 +1,6 @@
 # Link Shortening Project
 
-![Project Screenshot 1](Shortlink.Client/img/1.img)
+![Project Screenshot 1](Shortlink.Client/img/1.png)
 ![Project Screenshot 2](shortlink.client/img/2.img)
 ![Project Screenshot 3](shortlink.client/img/3.img)
 
